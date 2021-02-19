@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.30'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile "io.javalin:javalin:3.13.0"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.10.3"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3"
+    compile "org.slf4j:slf4j-simple:1.7.30"
+    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'msk.rest.vio.emu.MainKt'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+test {
+    useJUnitPlatform()
+}
