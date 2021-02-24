@@ -8,7 +8,7 @@ class SendFileModel(dtype: String, channelType: String, senderType: String, fnam
     var docSenderType: DocumentSenderType = DocumentSenderType.valueOf(senderType)
     var note = ""
     var fileName = fname
-//    var requestId = ???
+    var requestId = null
 
     fun toContentRequest() : ContentRequest {
         val req = ContentRequest(fileName, this.docType.id)
